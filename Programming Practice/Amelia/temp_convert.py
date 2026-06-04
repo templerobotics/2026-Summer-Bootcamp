@@ -1,8 +1,13 @@
-def conversion_main(input):
+def conversion_main():
+
     selection = input(
         "Select the conversion type:\n1. Meters to Feet\n2. Inches to Centimeters\n3. Celsius to Fahrenheit\n"
     )
-    value = input("Enter the value to convert: ")
+
+    if selection not in ["1", "2", "3", "0"]:
+        return "invalid selection"
+
+    value = get_num_input("Enter the value to convert: ")
 
     if selection == "1":
         return float(value) * 3.28084
@@ -10,13 +15,25 @@ def conversion_main(input):
         return float(value) * 2.54
     elif selection == "3":
         return float(value) * 1.8 + 32
-    else:
-        return "Invalid selection"
+    elif selection == "0":
+        return "Exiting the program."
+
+
+def get_num_input(prompt):
+    while True:
+        try:
+            return float(input(prompt))
+        except ValueError:
+            print("Invalid input. Please enter a numeric value.")
 
 
 def main():
-    result = str(round(conversion_main(input), 2))
-    print("Converted value:", result)
+    result = conversion_main()
+    if isinstance(result, str):
+        print(result)
+    else:
+        print("Converted value", round(result, 2))
 
 
-main()
+if __name__ == "__main__":
+    main()
